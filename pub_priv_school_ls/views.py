@@ -5,11 +5,7 @@ from .distance_calc import calculate_distance
 from .models import School
 from django.core.paginator import Paginator
 
-
-
 # Create your views here.
-
-
 def index(request):
     #this code is run after inputs are submitted which saves the input data
     places = ['Ak','AL','AR','AZ','CA','CO','CT','DC','DE','FL','GA','HI','IA','ID','IL',
@@ -17,8 +13,6 @@ def index(request):
               'NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT',
               'VT','VA','WA','WV','WI','WY']
     return render(request, "pub_priv_school_ls/index.html", {"places": places})
-
-
 
 def area(request, loc):
     if request.method == "POST":
@@ -49,29 +43,10 @@ def list(request, radius, latitude, longitude, loc):
     if request.method == "POST":
         return redirect(reverse("pub_priv_school_ls:index"))
     
-    
     #creates all the context which are then used in html request
     local_schools = School.objects.filter(state__contains=loc).filter(distance__lt=float(radius)).order_by("distance")
     num_schools = local_schools.count()
     int_schools(local_schools)
-    
-    #paginatation
-    #tab = request.GET.get('tab', '1')
-    #page_number = request.GET.get('page','1')
-    
-    #if tab ==  '1': 
-        #paginator_male = Paginator(local_schools, 10)
-        #page_obj = paginator_male.get_page(page_number)
-    #else:
-        #paginator_female = Paginator(local_schools, 10)
-        #page_obj = paginator_female.get_page(page_number)
-    
-    
-    
-    
-    
-    
-    
     
     #get context for totals for male students    
     total_kindergarten_m = sum(schools.kindergarten_male for schools in local_schools)
