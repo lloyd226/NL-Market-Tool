@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head> 
+    <title> New Location</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'pub_priv_school_ls/css/header.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'pub_priv_school_ls/css/list.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'pub_priv_school_ls/css/form.css' %}">
+</head>
+<body>
+<h1>
+    <div class="box">
+        <img class="logo" src="{% static 'pub_priv_school_ls/images/NL_logo_2.png' %}">
+        <div class="title"> Market Tool</div> 
+        <form method="post">
+            {% csrf_token %}
+            <button class="button" type="submit">New Location</button>
+        </form>
+    </div>
+    
+</h1>
+
+<div class="dropdown">
+    <button class="dropbtn">{{ loc }}</button> 
+    <div class="dropdown-content">
+            {% for loc in places%}
+            <a href="{% url 'pub_priv_school_ls:area' loc %}">{{loc}}</a>
+            {% endfor %}
+    </div>
+</div>
+<div>
+    <form method="post">
+        {% csrf_token %}
+        <div class="box_for_form">
+            <div class="flex_form">
+                <label for="input_latitude">Input Latitude:</label>
+                <input type="number" step=".000001" name="input_latitude" id="input_latitude" value="{{ form.input_latitude.value }}">
+                
+            </div>
+            <div  class="flex_form">
+                <label for="input_longitude">Input Longitude:</label>
+                <input type="number" step=".000001" name="input_longitude" id="input_longitude" value="{{ form.input_longitude.value }}">
+            </div>
+            <div class="flex_form">
+                <label for="radius">Radius (KM): </label>
+                <input type="number" step=".01" name="radius" id="radius" value="{{ form.radius.value }}">
+            </div>
+            <div class="button_div">
+                <input type="submit" class="submit_button" value="submit">
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+</body>
+</html>

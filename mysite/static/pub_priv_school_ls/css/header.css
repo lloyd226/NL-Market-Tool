@@ -1,0 +1,49 @@
+body {
+    font-family: "Raleway", sans-serif;
+    margin: 0px;
+    padding: 0px;
+}
+.box{
+    display: flex;
+    justify-content: space-around;
+}
+.button{
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #f26726;
+    margin-right: 40px;
+    vertical-align: middle;
+    margin-top: 16px;
+    flex-shrink: 1;
+    
+}
+.button:hover{
+    background-color: white;
+}
+h1 {
+    padding: 30px;
+    background-color: #0c233f;
+    height: 70px;
+    margin: 0;
+}
+.logo {
+    width: 140px;
+    height: 70px;
+}
+.long_lat{
+    color: gray;
+    float: right;
+    font-size: 18px;
+    padding: 12px;
+    margin-top: 16px; 
+}
+.title{
+    color: white;
+    text-transform: uppercase;
+    font-style: italic;
+    vertical-align: middle;
+    text-align: left;
+    margin-top: 16px;
+    flex-grow: 3;
+}
+

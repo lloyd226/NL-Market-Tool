@@ -1,0 +1,294 @@
+{% load static%}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Local Schools</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'pub_priv_school_ls/css/header.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'pub_priv_school_ls/css/list.css' %}">
+    <!-- For pie chart -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+    <h1>
+        <div class="box">
+            <img class="logo" src="{% static 'pub_priv_school_ls/images/NL_logo_2.png' %}">
+            <div class="title"> Market Tool</div> 
+            <div class="long_lat"> {{latitude}}  {{longitude}}</div>
+            <form method="post">
+                {% csrf_token %}
+                <button class="button" type="submit">New Location</button>
+            </form>
+        </div>
+        
+    </h1>
+
+    <div class="tabs">
+        <input type="radio" class="tabs__radio" name="tabs-example" id="tab1" checked>
+        <label for="tab1" class="tabs__label">Male</label>
+        <div class="tabs__content">
+            <div class="widgets">
+                <div class="list">
+                    <p class="num_schools">Number of Schools: {{ num_schools }}</p>
+                    <div class="data">
+                        <div class="name"> Number K Males: </div> <div class="number">{{ total_kindergarten_m }}</div>
+                        <div class="name"> Number 1st Grade Males: </div> <div class="number"> {{ total_first_m }}</div>
+                        <div class="name"> Number 2nd Grade Males: </div> <div class="number">{{ total_second_m }}</div>
+                        <div class="name"> Number 3rd Grade Males: </div> <div class="number">{{ total_third_m }}</div>
+                        <div class="name"> Number 4th Grade Males: </div> <div class="number">{{ total_fourth_m }}</div>
+                        <div class="name"> Number 5th Grade Males: </div> <div class="number">{{ total_fifth_m }}</div>
+                        <div class="name"> Number 6th Grade Males: </div> <div class="number">{{ total_sixth_m }}</div>
+                        <div class="name"> Number 7th Grade Males: </div> <div class="number">{{ total_seventh_m }}</div>
+                        <div class="name"> Number 8th Grade Males: </div> <div class="number">{{ total_eighth_m }}</div>
+                        <div class="tot_market" > Adressable Market: </div> <div class="tot_market_kids"> {{ adressable_market_m }}</div>
+                    </div>
+                </div>
+                <div class="chart">
+                    <canvas id="myChartMale"></canvas>
+                </div>
+            </div>
+            <script>
+                var myData = {{ data|safe }};
+        
+                // Get the context of the canvas element we want to select
+                var ctx = document.getElementById('myChartMale').getContext('2d');
+            
+                // Create a new Chart object
+                var myChartMale = new Chart(ctx, {
+                    type: 'pie', // Specify the chart type
+                    data: {
+                        labels: ['Hispanic', 'White', 'Black', 'Asian', 'Hawaiian', 'Native American', 'Multi-Race'], // Labels for the pie segments
+                        datasets: [{
+                            label: 'My First Dataset',
+                            data: myData, // Data for the pie segments
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)',
+                                'rgba(60, 179, 113, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)',
+                                'rgba(60, 179, 113, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true, // Make the chart responsive
+                        plugins: {
+                            legend: {
+                                position: 'top', // Position the legend at the top
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        let label = context.label || '';
+                                        if (label) {
+                                            label += ': ';
+                                        }
+                                        if (context.parsed !== null) {
+                                            label += context.parsed;
+                                        }
+                                        return label;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            
+            </script>
+            <table class="main_table">
+                <thead>
+                    <tr>
+                        <th>Distance</th>
+                        <th>School Name</th>
+                        <th>Adress</th>
+                        <th>State</th>
+                        <th>Zip Code</th>
+                        <th>Private/Public</th>
+                        <th>Kindergarten Male Students </th>
+                        <th>First Grade Male Students </th>
+                        <th>Second Grade Male Students </th>
+                        <th>Third Grade Male Students </th>
+                        <th>Fourth Grade Male Students </th>
+                        <th>Fifth Grade Male Students </th>
+                        <th>Sixth Grade Male Students </th>
+                        <th>Seventh Grade Male Students </th>
+                        <th>Eighth Grade Male Students </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for schools in local_schools %}
+                        <tr>
+                            <td>{{ schools.distance }}</td>
+                            <td>{{ schools.school_name }}</td>
+                            <td>{{ schools.adress }}</td>
+                            <td>{{ schools.state }}</td>
+                            <td>{{ schools.school_zip }}</td>
+                            <td>{{ schools.school_type }}</td>
+                            <td>{{ schools.kindergarten_male }}</td>
+                            <td>{{ schools.first_grade_male }}</td>
+                            <td>{{ schools.second_grade_male }}</td>
+                            <td>{{ schools.third_grade_male }}</td>
+                            <td>{{ schools.fourth_grade_male }}</td>
+                            <td>{{ schools.fifth_grade_male }}</td>
+                            <td>{{ schools.sixth_grade_male }}</td>
+                            <td>{{ schools.seventh_grade_male }}</td>
+                            <td>{{ schools.eighth_grade_male }}</td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="3">No products found.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <input type="radio" class="tabs__radio" name="tabs-example" id="tab2">
+        <label for="tab2" class="tabs__label">Female</label>
+        <div class="tabs__content">
+            <div class="widgets">
+                <div class="list">
+                    <p class="num_schools">Number of Schools: {{ num_schools }}</p>
+                    <div class="data">
+                        <div class="name"> Number K Females: </div> <div class="number">{{ total_kindergarten_f }}</div>
+                        <div class="name"> Number 1st Grade Females: </div> <div class="number"> {{ total_first_f }}</div>
+                        <div class="name"> Number 2nd Grade Females: </div> <div class="number">{{ total_second_f }}</div>
+                        <div class="name"> Number 3rd Grade Females: </div> <div class="number">{{ total_third_f }}</div>
+                        <div class="name"> Number 4th Grade Females: </div> <div class="number">{{ total_fourth_f }}</div>
+                        <div class="name"> Number 5th Grade Females: </div> <div class="number">{{ total_fifth_f }}</div>
+                        <div class="name"> Number 6th Grade Females: </div> <div class="number">{{ total_sixth_f }}</div>
+                        <div class="name"> Number 7th Grade Females: </div> <div class="number">{{ total_seventh_f }}</div>
+                        <div class="name"> Number 8th Grade Females: </div> <div class="number">{{ total_eighth_f }}</div>
+                        <div class="tot_market" > Adressable Market: </div> <div class="tot_market_kids"> {{ adressable_market_f }}</div>
+                    </div>
+                </div>
+                <div class="chart">
+                    <canvas id="myChartFemale"></canvas>
+                </div>
+            </div>
+            <script>
+                var myData = {{ data|safe }};
+        
+                // Get the context of the canvas element we want to select
+                var ctx = document.getElementById('myChartFemale').getContext('2d');
+            
+                // Create a new Chart object
+                var myChartFemale = new Chart(ctx, {
+                    type: 'pie', // Specify the chart type
+                    data: {
+                        labels: ['Hispanic', 'White', 'Black', 'Asian', 'Hawaiian', 'Native American', 'Multi-Race'], // Labels for the pie segments
+                        datasets: [{
+                            label: 'My First Dataset',
+                            data: myData, // Data for the pie segments
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)',
+                                'rgba(60, 179, 113, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)',
+                                'rgba(60, 179, 113, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true, // Make the chart responsive
+                        plugins: {
+                            legend: {
+                                position: 'top', // Position the legend at the top
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        let label = context.label || '';
+                                        if (label) {
+                                            label += ': ';
+                                        }
+                                        if (context.parsed !== null) {
+                                            label += context.parsed;
+                                        }
+                                        return label;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            
+            </script>
+            <table class="main_table" id="male_table">
+                <thead>
+                    <tr>
+                        <th>Distance</th>
+                        <th>School Name</th>
+                        <th>Adress</th>
+                        <th>State</th>
+                        <th>Zip Code</th>
+                        <th>Private/Public</th>
+                        <th>Kindergarten Female Students </th>
+                        <th>First Grade Female Students </th>
+                        <th>Second Grade Female Students </th>
+                        <th>Third Grade Female Students </th>
+                        <th>Fourth Grade Female Students </th>
+                        <th>Fifth Grade Female Students </th>
+                        <th>Sixth Grade Female Students </th>
+                        <th>Seventh Grade Female Students </th>
+                        <th>Eighth Grade Female Students </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for schools in local_schools %}
+                        <tr>
+                            <td>{{ schools.distance }}</td>
+                            <td>{{ schools.school_name }}</td>
+                            <td>{{ schools.adress }}</td>
+                            <td>{{ schools.state }}</td>
+                            <td>{{ schools.school_zip }}</td>
+                            <td>{{ schools.school_type }}</td>
+                            <td>{{ schools.kindergarten_female }}</td>
+                            <td>{{ schools.first_grade_female }}</td>
+                            <td>{{ schools.second_grade_female }}</td>
+                            <td>{{ schools.third_grade_female }}</td>
+                            <td>{{ schools.fourth_grade_female }}</td>
+                            <td>{{ schools.fifth_grade_female }}</td>
+                            <td>{{ schools.sixth_grade_female }}</td>
+                            <td>{{ schools.seventh_grade_female }}</td>
+                            <td>{{ schools.eighth_grade_female }}</td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="3">No products found.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,42 @@
+#sums {
+    margin: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+.list {
+    text-align: center;
+    font-size: 16px;
+}
+.list, .chart {
+    width: 48%;
+    height: 500px;
+    border: 2px solid black;
+    padding: 10px;
+    box-sizing: border-box;
+    
+}
+.chart {
+    display: flex;
+    justify-content: center;
+    box-sizing: center;
+}
+.num_schools {
+    font-style: bold;
+    font-size: 30px;
+}
+table {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: collapse;
+}
+th, td {
+    border: 1px solid #000000;
+    padding: 8px;
+}
+th {
+    background-color: #f2f2f2;
+}
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}

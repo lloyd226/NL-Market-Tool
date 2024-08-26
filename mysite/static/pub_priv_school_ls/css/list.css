@@ -1,0 +1,103 @@
+.chart {
+    display: flex;
+    justify-content: center;
+}
+.data{
+    display: flex;
+    flex-wrap: wrap;
+    width: 45%;
+    text-align: center;
+    margin: auto;
+}
+.list {
+    text-align: center;
+    font-size: 16px;
+}
+.list, .chart {
+    width: 45%;
+    height: 500px;
+    border: 2px #dddddd;
+    background-color: #f2f2f2;
+    border-radius: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    box-shadow: 0 0 20px rgba(0,0,0,0.15);
+}
+.main_table {
+    margin-right: 100px;
+    border-collapse: collapse;
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0,0,0,0.15);
+}
+.name{
+    margin-bottom: 10px;
+}
+.number{
+    flex-grow: 1;
+    text-align: right;
+}
+.num_schools {
+    font-style: bold;
+    font-size: 30px;
+}
+.tot_market{
+    font-weight: bold;
+    font-size: 20px;
+    margin-top: 10px;
+}
+.tot_market_kids{
+    flex-grow: 1;
+    text-align: right;
+    font-weight: bold;
+    font-size: 20px;
+    margin-top: 10px;
+}
+th, td {
+    padding: 8px;
+    border-bottom: 1px #dddddd;
+}
+th {
+    background-color: #f2f2f2;
+}
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.tabs {
+    display: flex;
+    flex-wrap: wrap;
+    font-family: sans-serif;
+    margin-left: 80px;
+} 
+.tabs__label {
+    padding: 10px 16px;
+    cursor: pointer;
+} 
+.tabs__radio {
+    display: none;
+} 
+.tabs__content {
+    order: 1;
+    width: 100%;
+
+    line-height: 1.5;
+    font-size: 0.9em;
+    display: none;
+}
+.tabs__radio:checked + .tabs__label {
+    font-weight: bold;
+    color: #009578;
+    border-bottom: 2px solid #009578;
+}
+.tabs__radio:checked + .tabs__label + .tabs__content {
+    display: initial;
+}
+.widgets {
+    margin: 20px;
+    margin-right: 100px;
+    margin-bottom: 80px;
+    display: flex;
+    justify-content: space-between;
+}
+

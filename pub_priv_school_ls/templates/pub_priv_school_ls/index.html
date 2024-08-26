@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head> 
+    <title> New Location</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'pub_priv_school_ls/css/header.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'pub_priv_school_ls/css/list.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'pub_priv_school_ls/css/form.css' %}">
+</head>
+<body>
+<h1>
+    <div class="box">
+        <img class="logo" src="{% static 'pub_priv_school_ls/images/NL_logo_2.png' %}">
+        <div class="title"> Market Tool</div> 
+        <form method="post">
+            {% csrf_token %}
+            <button class="button" type="submit">New Location</button>
+        </form>
+    </div>
+    
+</h1>
+
+
+<div class="dropdown">
+    <button class="dropbtn">Select State</button> 
+    <div class="dropdown-content">
+            {% for loc in places%}
+            <a href="{% url 'pub_priv_school_ls:area' loc %}">{{loc}}</a>
+            {% endfor %}
+    </div>
+</div>
+
+</body>
+</html>
